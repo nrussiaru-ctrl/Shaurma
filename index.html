@@ -2,147 +2,383 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shaurma Wiki - Semi-Vanilla</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary: #ff9f1c;
+            --primary-hover: #e08b15;
+            --secondary: #2ec4b6;
+            --bg-dark: #0f1016;
+            --bg-panel: #1b1e2b;
+            --bg-input: #252938;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --discord: #5865F2;
+            --telegram: #24A1DE;
+            --border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        
+        body { background-color: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px; background-color: var(--bg-panel); padding: 2.5rem 2rem;
+            display: flex; flex-direction: column; border-right: 1px solid var(--border-color);
+            position: fixed; height: 100vh; z-index: 100;
+        }
+        .logo { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 2rem; cursor: pointer; text-shadow: 0 0 15px rgba(255, 159, 28, 0.3); }
+        .nav-links { list-style: none; flex-grow: 1; overflow-y: auto; }
+        .nav-links li { margin-bottom: 0.5rem; }
+        .nav-btn {
+            background: none; border: none; color: var(--text-muted); font-size: 1rem; font-weight: 600;
+            cursor: pointer; width: 100%; text-align: left; padding: 1rem; border-radius: 12px;
+            transition: all 0.3s; display: flex; align-items: center; gap: 10px;
+        }
+        .nav-btn:hover { background-color: rgba(255, 255, 255, 0.03); color: var(--text-main); transform: translateX(5px); }
+        .nav-btn.active { background-color: rgba(255, 159, 28, 0.15); color: var(--primary); }
+        
+        .social-links { margin-top: auto; display: flex; gap: 10px; }
+        .social-btn { flex: 1; padding: 10px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: bold; font-size: 0.85rem; transition: 0.2s; }
+        .btn-discord { background-color: var(--discord); color: white; }
+        .btn-telegram { background-color: var(--telegram); color: white; }
+
+        /* Main Content */
+        .main-content { margin-left: 280px; flex-grow: 1; padding: 3rem; max-width: 1400px; }
+        
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 2rem; position: relative; max-width: 500px;
+        }
+        .search-input {
+            width: 100%; background: var(--bg-input); border: 1px solid var(--border-color);
+            padding: 15px 20px; border-radius: 12px; color: white; font-size: 1rem; outline: none;
+            transition: 0.3s;
+        }
+        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 159, 28, 0.1); }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 159, 28, 0.08), rgba(0,0,0,0));
+            border: 1px solid rgba(255, 159, 28, 0.2); padding: 3rem; border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .status-badge {
+            display: inline-block; background: rgba(46, 196, 182, 0.15); color: var(--secondary);
+            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+            border: 1px solid var(--secondary); margin-bottom: 1rem;
+        }
+
+        /* Sections */
+        .wiki-section { display: none; animation: fadeIn 0.5s ease; }
+        .wiki-section.active { display: block; }
+        
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; border-left: 4px solid var(--primary); padding-left: 15px; }
+        h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.2rem; }
+        p, li { color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
+
+        /* Cards Grid */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .info-card {
+            background-color: var(--bg-panel); padding: 1.5rem; border-radius: 12px;
+            border: 1px solid var(--border-color); transition: 0.3s; cursor: default;
+        }
+        .info-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        
+        /* Recommendations Block */
+        .recommendations {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 3rem;
+        }
+        .rec-card {
+            background: rgba(255, 159, 28, 0.05); border: 1px solid rgba(255, 159, 28, 0.2);
+            padding: 1.5rem; border-radius: 12px; text-align: center; cursor: pointer;
+            transition: 0.3s; text-decoration: none; color: white; display: block;
+        }
+        .rec-card:hover { background: rgba(255, 159, 28, 0.15); transform: scale(1.02); }
+        .rec-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+        .rec-title { font-weight: bold; color: var(--primary); }
+
+        /* Whitelist Box */
+        .whitelist-box {
+            background: rgba(88, 101, 242, 0.05); border: 1px solid var(--discord);
+            padding: 2rem; border-radius: 12px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Mobile */
+        @media (max-width: 900px) {
+            .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; border-bottom: 1px solid var(--border-color); }
+            .nav-links { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; }
+            .nav-links li { margin-bottom: 0; min-width: max-content; }
+            .social-links { display: none; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+            .search-container { max-width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Боковая панель -->
+    <!-- SIDEBAR -->
     <nav class="sidebar">
-        <div class="logo">SHAURMA</div>
-        
+        <div class="logo" onclick="showSection('home')">SHAURMA</div>
         <ul class="nav-links">
-            <li><button class="nav-btn active" onclick="showSection('home')">🏠 О сервере</button></li>
+            <li><button class="nav-btn active" onclick="showSection('home')">🏠 Главная</button></li>
+            <li><button class="nav-btn" onclick="showSection('start')">🚀 Начало игры</button></li>
             <li><button class="nav-btn" onclick="showSection('rules')">📜 Правила</button></li>
-            <li><button class="nav-btn" onclick="showSection('whitelist')">🔒 Вайтлист</button></li>
+            <li><button class="nav-btn" onclick="showSection('economy')">💰 Экономика</button></li>
+            <li><button class="nav-btn" onclick="showSection('ranks')">👑 Ранги</button></li>
+            <li><button class="nav-btn" onclick="showSection('mechanics')">⚙️ Механики</button></li>
             <li><button class="nav-btn" onclick="showSection('plugins')">🔌 Плагины</button></li>
-            <li><button class="nav-btn" onclick="showSection('faq')">❓ FAQ</button></li>
         </ul>
-
         <div class="social-links">
             <a href="#" class="social-btn btn-discord">Discord</a>
             <a href="#" class="social-btn btn-telegram">Telegram</a>
         </div>
     </nav>
 
-    <!-- Основной контент -->
+    <!-- MAIN CONTENT -->
     <main class="main-content">
         
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск по вики (например: приват, деньги)..." onkeyup="searchWiki()">
+        </div>
+
+        <!-- HERO -->
         <div class="hero">
             <span class="status-badge">SEMI-VANILLA | NO LICENSE</span>
-            <h1>Чистое выживание</h1>
-            <p>Минимум плагинов. Максимум атмосферы. Играй так, как задумал Нотч.</p>
+            <h1>Добро пожаловать на Shaurma</h1>
+            <p>Ламповое выживание с минимальным количеством плагинов. Строй, торгуй, выживай.</p>
         </div>
 
-        <!-- Раздел: О сервере -->
+        <!-- SECTION: HOME -->
         <div id="home" class="wiki-section active">
-            <h2>Концепция сервера</h2>
+            <h2>Рекомендуем начать с:</h2>
+            <div class="recommendations">
+                <a onclick="showSection('start')" class="rec-card">
+                    <span class="rec-icon">📝</span>
+                    <span class="rec-title">Как попасть?</span>
+                </a>
+                <a onclick="showSection('rules')" class="rec-card">
+                    <span class="rec-icon">⚖️</span>
+                    <span class="rec-title">Правила</span>
+                </a>
+                <a onclick="showSection('economy')" class="rec-card">
+                    <span class="rec-icon">💰</span>
+                    <span class="rec-title">Заработок</span>
+                </a>
+                <a onclick="showSection('mechanics')" class="rec-card">
+                    <span class="rec-icon">🏠</span>
+                    <span class="rec-title">Приваты</span>
+                </a>
+            </div>
+
+            <h2>О сервере</h2>
             <div class="card-grid">
                 <div class="info-card">
-                    <h3>Полу-ванилла</h3>
-                    <p>Мы сохранили оригинальную механику Minecraft. Никаких магических мечей, уровней прокачки или доната, дающего преимущество.</p>
-                </div>
-                <div class="info-card">
                     <h3>Версия</h3>
-                    <p>1.20.4 (Рекомендуемая). Поддержка пиратских клиентов (без лицензии).</p>
+                    <p>1.20.4 (Поддержка 1.16 - 1.20). Рекомендуется играть на последней версии для стабильности.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Атмосфера</h3>
-                    <p>Ламповое комьюнити. Строим города, торгуем с игроками, исследуем мир.</p>
+                    <h3>Лицензия</h3>
+                    <p>Сервер работает в режиме <strong>Offline</strong>. Лицензия Minecraft не требуется.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Вайп</h3>
+                    <p>Полный вайп раз в 3-4 месяца. Частые обновления карты и свежие механики.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Раздел: Правила -->
-        <div id="rules" class="wiki-section">
-            <h2>Правила</h2>
-            <div class="info-card">
-                <h3>1. Честная игра</h3>
-                <ul>
-                    <li>Использование чит-клиентов (X-Ray, KillAura и др.) = Бан навсегда.</li>
-                    <li>Гриферство чужих построек запрещено.</li>
-                    <li>Уважайте других игроков в чате.</li>
-                </ul>
-            </div>
-            <br>
-            <div class="info-card">
-                <h3>2. Технические моменты</h3>
-                <ul>
-                    <li>Запрещены лаг-машины.</li>
-                    <li>Запрещено строительство ферм, нагружающих сервер (мобы, редстоун).</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Раздел: Вайтлист -->
-        <div id="whitelist" class="wiki-section">
-            <h2>Как попасть?</h2>
-            <p class="description-text">
-                Чтобы сохранить адекватное комьюнити, вход на сервер только по заявке.
-            </p>
-
+        <!-- SECTION: START (WHITELIST) -->
+        <div id="start" class="wiki-section">
+            <h2>Начало игры</h2>
             <div class="whitelist-box">
-                <h3>Алгоритм действий:</h3>
-                <ol>
-                    <li>Зайди на наш <strong>Discord</strong> (кнопка слева).</li>
+                <h3>🔒 Вход через WhiteList</h3>
+                <p>Мы используем вайтлист, чтобы отсеять неадекватных игроков. Попасть к нам легко:</p>
+                <ol style="margin-left: 20px; color: var(--text-muted); margin-top: 10px;">
+                    <li>Зайди на наш <strong>Discord</strong> сервер.</li>
                     <li>Прочитай правила в канале <code>#информация</code>.</li>
-                    <li>Напиши заявку в канале <code>#вайтлист</code> по шаблону:</li>
+                    <li>Перейди в канал <code>#заявка-на-вайтлист</code>.</li>
+                    <li>Напиши заявку по шаблону:</li>
                 </ol>
-                <div style="background: #000; padding: 10px; margin-top: 10px; border-radius: 5px; font-family: monospace; color: #0f0;">
-                    Никнейм: <br>
+                <div style="background: #000; padding: 15px; margin: 15px 0; border-radius: 8px; font-family: monospace; color: #0f0;">
+                    Ник: <br>
                     Возраст: <br>
-                    Опыт игры: <br>
-                    Почему хочешь к нам:
+                    Откуда узнал: <br>
+                    Почему хочешь играть:
                 </div>
-                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">*Ожидай ответа от модератора.</p>
+                <p>После одобрения ты получишь доступ к каналу с IP адресом.</p>
             </div>
         </div>
 
-        <!-- Раздел: Плагины (Обновлено под полу-ваниллу) -->
+        <!-- SECTION: RULES -->
+        <div id="rules" class="wiki-section">
+            <h2>Правила сервера</h2>
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3>1. Запрещено</h3>
+                    <ul>
+                        <li>Использование читов (X-Ray, Fly, KillAura).</li>
+                        <li>Гриферство (разрушение чужих построек).</li>
+                        <li>Оскорбления, спам, реклама.</li>
+                        <li>Багоюз (использование ошибок сервера).</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>2. Лаг-машины</h3>
+                    <p>Запрещено создание ферм и механизмов, которые сильно нагружают сервер (много мобов, частые редстоун-часы).</p>
+                </div>
+                <div class="info-card">
+                    <h3>3. ПвП</h3>
+                    <p>ПвП разрешено везде, кроме спавна. Убийство без причины (РДМ) не приветствуется, но не карается, если нет доказательств читов.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: ECONOMY -->
+        <div id="economy" class="wiki-section">
+            <h2>Экономика</h2>
+            <p>На сервере нет доната, дающего преимущество. Все зарабатывается игрой.</p>
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3>Валюта</h3>
+                    <p>Золотые самородки или Изумруды (в зависимости от сезона). Обозначается как <strong>$</strong>.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Команда /sell</h3>
+                    <p>Продайте все предметы из инвентаря серверу. <br>Пример: <code>/sell all</code> или <code>/sell dirt</code>.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Игровые магазины</h3>
+                    <p>Игроки создают свои магазины с помощью сундуков. Цены устанавливаются самими игроками.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Работа</h3>
+                    <p>Выполняйте квесты у жителей на спавне или добывайте ресурсы для продажи другим игрокам.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: RANKS -->
+        <div id="ranks" class="wiki-section">
+            <h2>Ранги и Привилегии</h2>
+            <p>Все ранги покупаются только за игровую валюту или выдаются за активность. Донат за реальные деньги только косметический.</p>
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3 style="color: #aaa;">Игрок</h3>
+                    <p>Стандартный ранг. Доступ ко всем базовым функциям.</p>
+                </div>
+                <div class="info-card">
+                    <h3 style="color: #2ec4b6;">Ветеран</h3>
+                    <p>Выдается за 100 часов на сервере. <br>+ Префикс в чате <br>+ Возможность ставить цветной ник</p>
+                </div>
+                <div class="info-card">
+                    <h3 style="color: #ff9f1c;">Шаурма-Boss</h3>
+                    <p>Топовый ранг за активность. <br>+ Полет в лобби <br>+ Уникальный частицы <br>+ Вход на полный сервер</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: MECHANICS -->
+        <div id="mechanics" class="wiki-section">
+            <h2>Механики и Команды</h2>
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3>Приваты</h3>
+                    <p>На сервере <strong>НЕТ</strong> классических приватов золотой лопатой. Ваши постройки защищены законом и плагином <strong>CoreProtect</strong>. Если вас обгриферят — администрация откатит действия.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Домашняя точка</h3>
+                    <p>Установить дом: <code>/sethome</code><br>Телепорт домой: <code>/home</code><br>Лимит: 1 дом (можно увеличить рангом).</p>
+                </div>
+                <div class="info-card">
+                    <h3>Телепортация</h3>
+                    <p>Запрос телепорта: <code>/tpa [ник]</code><br>Принять: <code>/tpaccept</code><br>Отклонить: <code>/tpdeny</code></p>
+                </div>
+                <div class="info-card">
+                    <h3>АФК</h3>
+                    <p>Если вы не двигаетесь 15 минут, вас кикнет с сервера для освобождения места.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: PLUGINS -->
         <div id="plugins" class="wiki-section">
-            <h2>Техническая часть</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">
-                Мы используем только те плагины, которые необходимы для стабильной работы и защиты. Они <strong>не влияют</strong> на геймплей.
-            </p>
-            
+            <h2>Технические плагины</h2>
+            <p>Мы используем только то, что нужно для стабильности.</p>
             <div class="card-grid">
                 <div class="info-card">
                     <h3>CoreProtect</h3>
-                    <p>Защита от гриферства. Мы можем откатить действия любого игрока, если вас обидели.</p>
+                    <p>Логирует каждое действие. Позволяет откатить гриферство за секунды.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Anti-Cheat</h3>
-                    <p>Базовая защита от полетов и убийства через стены. Не палит легитимных игроков.</p>
+                    <h3>GrimAC / Vulcan</h3>
+                    <p>Анти-чит. Блокирует полеты, скорость и авто-кликеры.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Чат и Таб</h3>
-                    <p>Красивое оформление чата и списка игроков. Цвет ника в зависимости от статуса.</p>
+                    <h3>TAB</h3>
+                    <p>Красивый список игроков и префиксы над головой.</p>
                 </div>
-                <div class="info-card">
-                    <h3>AFK Kick</h3>
-                    <p>Автоматический кик игроков, которые не двигаются более 15 минут (для разгрузки сервера).</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Раздел: FAQ -->
-        <div id="faq" class="wiki-section">
-            <h2>Частые вопросы</h2>
-            <div class="info-card">
-                <h3>Есть ли приваты?</h3>
-                <p>Нет, классических приватов золотой лопатой нет. Территория защищена законом сервера и плагином отката (CoreProtect). Стройте в отдалении от спавна.</p>
-            </div>
-            <br>
-            <div class="info-card">
-                <h3>Есть ли донат?</h3>
-                <p>Донат только косметический (цвет ника, префикс). Он не дает предметов, денег или полета в выживании.</p>
             </div>
         </div>
 
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        // --- JS LOGIC ---
+
+        // 1. Переключение вкладок
+        function showSection(sectionId) {
+            // Скрыть все секции
+            document.querySelectorAll('.wiki-section').forEach(sec => sec.classList.remove('active'));
+            // Убрать активный класс с кнопок
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Показать нужную секцию
+            const target = document.getElementById(sectionId);
+            if(target) target.classList.add('active');
+
+            // Подсветить кнопку
+            const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(sectionId));
+            if(activeBtn) activeBtn.classList.add('active');
+
+            // Сброс поиска при переключении
+            document.getElementById('searchInput').value = '';
+            document.querySelectorAll('.info-card').forEach(card => card.style.display = 'block');
+        }
+
+        // 2. Система поиска
+        function searchWiki() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            
+            // Ищем во всех карточках на странице
+            const cards = document.getElementsByClassName('info-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].getElementsByTagName("h3")[0];
+                const txtValue = title.textContent || title.innerText;
+                
+                // Если текст заголовка совпадает с поиском
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            // Если мы ищем, убедимся, что мы на видимой секции (опционально можно раскомментировать, чтобы перекидывало на главную)
+            // showSection('home'); 
+        }
+    </script>
 </body>
 </html>
