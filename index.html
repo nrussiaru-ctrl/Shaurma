@@ -2,9 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Minecraft Server Control | by @Prostynskiy</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaurma Server Wiki | Minecraft</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,7 +17,7 @@
         <div class="bg-particle"></div>
         <div class="bg-particle"></div>
     </div>
-
+    
     <!-- Main Container -->
     <div class="app-container">
         
@@ -27,269 +26,188 @@
             <div class="header-content">
                 <div class="logo-container">
                     <div class="logo-glow"></div>
-                    <i class="fas fa-cube logo-icon"></i>
+                    <i class="fas fa-shield-alt logo-icon"></i>
                 </div>
                 <div class="header-text">
-                    <h1 class="title">Minecraft Server</h1>
-                    <p class="subtitle">Control Panel by @Prostynskiy</p>
+                    <h1 class="title">Shaurma Server</h1>
+                    <p class="subtitle">Официальная Википедия</p>
                 </div>
             </div>
-            <div class="header-badge" id="connection-status">
-                <span class="badge-dot online"></span>
-                <span class="badge-text">Online</span>
+            <div class="header-badge whitelist-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">WhiteList Only</span>
             </div>
         </header>
 
-        <!-- Server Status Card -->
-        <div class="status-card glass-effect">
-            <div class="status-header">
-                <div class="status-indicator-wrapper">
-                    <div class="status-indicator" id="server-status-indicator"></div>
-                    <div class="status-pulse"></div>
-                </div>
-                <div class="status-info">
-                    <h2 class="status-title" id="server-status-text">Server Online</h2>
-                    <p class="status-subtitle" id="server-uptime">Uptime: 24h 15m 32s</p>
-                </div>
+        <!-- Social Links -->
+        <div class="social-links glass-effect">
+            <a href="https://discord.gg/shaurma" class="social-btn discord-btn" target="_blank">
+                <i class="fab fa-discord"></i>
+                <span>Discord</span>
+                <div class="btn-glow"></div>
+            </a>
+            <a href="https://t.me/shaurma_server" class="social-btn telegram-btn" target="_blank">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram</span>
+                <div class="btn-glow"></div>
+            </a>
+        </div>
+
+        <!-- Whitelist Info Card -->
+        <div class="info-card glass-effect">
+            <div class="info-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>Важная Информация</h2>
             </div>
-            
-            <div class="status-grid">
-                <div class="status-item">
-                    <div class="status-item-icon players">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="status-item-content">
-                        <span class="status-item-value" id="players-count">12/100</span>
-                        <span class="status-item-label">Players</span>
+            <div class="info-content">
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-lock"></i></div>
+                    <div class="info-text">
+                        <h3>Без Лицензии</h3>
+                        <p>Сервер работает в оффлайн режиме. Лицензия Minecraft не требуется.</p>
                     </div>
                 </div>
-                
-                <div class="status-item">
-                    <div class="status-item-icon memory">
-                        <i class="fas fa-memory"></i>
-                    </div>
-                    <div class="status-item-content">
-                        <span class="status-item-value" id="memory-usage">4.2 GB</span>
-                        <span class="status-item-label">Memory</span>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-list"></i></div>
+                    <div class="info-text">
+                        <h3>Белый Список</h3>
+                        <p>Вход только по заявке через Discord. Подайте заявку и дождитесь одобрения.</p>
                     </div>
                 </div>
-                
-                <div class="status-item">
-                    <div class="status-item-icon cpu">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <div class="status-item-content">
-                        <span class="status-item-value" id="cpu-usage">23%</span>
-                        <span class="status-item-label">CPU</span>
-                    </div>
-                </div>
-                
-                <div class="status-item">
-                    <div class="status-item-icon tps">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div class="status-item-content">
-                        <span class="status-item-value" id="tps-value">20.0</span>
-                        <span class="status-item-label">TPS</span>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fab fa-discord"></i></div>
+                    <div class="info-text">
+                        <h3>Вход через Discord</h3>
+                        <p>Все заявки подаются через наш Discord сервер. Присоединяйтесь!</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Performance Charts -->
-        <div class="charts-container">
-            <div class="chart-card glass-effect">
-                <div class="chart-header">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Performance</span>
-                </div>
-                <div class="chart-bars">
-                    <div class="chart-bar-wrapper">
-                        <div class="chart-bar-label">
-                            <i class="fas fa-microchip"></i> CPU
-                        </div>
-                        <div class="chart-bar-bg">
-                            <div class="chart-bar-fill cpu-bar" id="cpu-bar" style="width: 23%"></div>
-                        </div>
-                        <span class="chart-bar-value" id="cpu-bar-value">23%</span>
-                    </div>
-                    
-                    <div class="chart-bar-wrapper">
-                        <div class="chart-bar-label">
-                            <i class="fas fa-memory"></i> RAM
-                        </div>
-                        <div class="chart-bar-bg">
-                            <div class="chart-bar-fill ram-bar" id="ram-bar" style="width: 52%"></div>
-                        </div>
-                        <span class="chart-bar-value" id="ram-bar-value">52%</span>
-                    </div>
-                    
-                    <div class="chart-bar-wrapper">
-                        <div class="chart-bar-label">
-                            <i class="fas fa-hdd"></i> Disk
-                        </div>
-                        <div class="chart-bar-bg">
-                            <div class="chart-bar-fill disk-bar" id="disk-bar" style="width: 67%"></div>
-                        </div>
-                        <span class="chart-bar-value" id="disk-bar-value">67%</span>
-                    </div>
-                </div>
+        <!-- Wiki Navigation -->
+        <nav class="wiki-nav glass-effect">
+            <h3 class="nav-title"><i class="fas fa-book"></i> Разделы Википедии</h3>
+            <div class="nav-grid">
+                <button class="nav-btn active" data-section="rules"><i class="fas fa-scroll"></i><span>Правила</span></button>
+                <button class="nav-btn" data-section="start"><i class="fas fa-play"></i><span>Как Начать</span></button>
+                <button class="nav-btn" data-section="whitelist"><i class="fas fa-id-card"></i><span>Whitelist</span></button>
+                <button class="nav-btn" data-section="economy"><i class="fas fa-coins"></i><span>Экономика</span></button>
+                <button class="nav-btn" data-section="plugins"><i class="fas fa-plug"></i><span>Плагины</span></button>
+                <button class="nav-btn" data-section="faq"><i class="fas fa-question-circle"></i><span>FAQ</span></button>
             </div>
-        </div>
+        </nav>
 
-        <!-- Control Buttons -->
-        <div class="controls-section">
-            <h3 class="section-title">
-                <i class="fas fa-sliders-h"></i>
-                Server Controls
-            </h3>
+        <!-- Wiki Content Sections -->
+        <div class="wiki-content">
             
-            <div class="controls-grid">
-                <button class="control-btn btn-start" onclick="serverAction('start')">
-                    <div class="btn-icon">
-                        <i class="fas fa-play"></i>
+            <!-- Rules Section -->
+            <section class="content-section active" id="rules-section">
+                <div class="section-card glass-effect">
+                    <div class="section-header"><i class="fas fa-scroll"></i><h2>Правила Сервера</h2></div>
+                    <div class="section-body">
+                        <div class="rule-item"><span class="rule-number">1</span><div class="rule-content"><h4>Уважение к другим игрокам</h4><p>Запрещены оскорбления, токсичное поведение и дискриминация.</p></div></div>
+                        <div class="rule-item"><span class="rule-number">2</span><div class="rule-content"><h4>Запрет на читы</h4><p>Использование читов и X-Ray запрещено.</p></div></div>
+                        <div class="rule-item"><span class="rule-number">3</span><div class="rule-content"><h4>Гриферство</h4><p>Разрушение чужих построек и кража запрещены.</p></div></div>
+                        <div class="rule-item"><span class="rule-number">4</span><div class="rule-content"><h4>Спам в чате</h4><p>Не злоупотребляйте чатом.</p></div></div>
+                        <div class="rule-item"><span class="rule-number">5</span><div class="rule-content"><h4>Реклама</h4><p>Реклама других серверов запрещена.</p></div></div>
                     </div>
-                    <span class="btn-text">Start</span>
-                    <div class="btn-glow"></div>
-                </button>
-                
-                <button class="control-btn btn-restart" onclick="serverAction('restart')">
-                    <div class="btn-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <span class="btn-text">Restart</span>
-                    <div class="btn-glow"></div>
-                </button>
-                
-                <button class="control-btn btn-stop" onclick="serverAction('stop')">
-                    <div class="btn-icon">
-                        <i class="fas fa-stop"></i>
-                    </div>
-                    <span class="btn-text">Stop</span>
-                    <div class="btn-glow"></div>
-                </button>
-                
-                <button class="control-btn btn-save" onclick="serverAction('save')">
-                    <div class="btn-icon">
-                        <i class="fas fa-save"></i>
-                    </div>
-                    <span class="btn-text">Save</span>
-                    <div class="btn-glow"></div>
-                </button>
-                
-                <button class="control-btn btn-backup" onclick="serverAction('backup')">
-                    <div class="btn-icon">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <span class="btn-text">Backup</span>
-                    <div class="btn-glow"></div>
-                </button>
-                
-                <button class="control-btn btn-console" onclick="toggleConsole()">
-                    <div class="btn-icon">
-                        <i class="fas fa-terminal"></i>
-                    </div>
-                    <span class="btn-text">Console</span>
-                    <div class="btn-glow"></div>
-                </button>
-            </div>
-        </div>
+                </div>
+            </section>
 
-        <!-- Online Players -->
-        <div class="players-section glass-effect">
-            <div class="section-header">
-                <h3 class="section-title">
-                    <i class="fas fa-users"></i>
-                    Online Players
-                </h3>
-                <span class="players-count-badge" id="online-badge">12</span>
-            </div>
-            
-            <div class="players-list" id="players-list">
-                <div class="player-item">
-                    <div class="player-avatar">
-                        <i class="fas fa-user"></i>
+            <!-- How to Start Section -->
+            <section class="content-section" id="start-section">
+                <div class="section-card glass-effect">
+                    <div class="section-header"><i class="fas fa-play"></i><h2>Как Начать Играть</h2></div>
+                    <div class="section-body">
+                        <div class="step-item"><div class="step-number">1</div><div class="step-content"><h4>Скачайте Minecraft</h4><p>Рекомендуемая версия: <strong>1.20.1</strong></p></div></div>
+                        <div class="step-item"><div class="step-number">2</div><div class="step-content"><h4>Подайте заявку в Discord</h4><p>Перейдите на Discord сервер и создайте заявку.</p></div></div>
+                        <div class="step-item"><div class="step-number">3</div><div class="step-content"><h4>Дождитесь одобрения</h4><p>Администрация рассмотрит заявку в течение 24 часов.</p></div></div>
+                        <div class="step-item"><div class="step-number">4</div><div class="step-content"><h4>Подключайтесь</h4><p>IP: <strong>shaurma.server.ru</strong></p></div></div>
                     </div>
-                    <div class="player-info">
-                        <span class="player-name">Steve_Builder</span>
-                        <span class="player-time">2h 15m online</span>
-                    </div>
-                    <div class="player-status online"></div>
                 </div>
-                
-                <div class="player-item">
-                    <div class="player-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="player-info">
-                        <span class="player-name">Alex_Miner</span>
-                        <span class="player-time">1h 42m online</span>
-                    </div>
-                    <div class="player-status online"></div>
-                </div>
-                
-                <div class="player-item">
-                    <div class="player-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="player-info">
-                        <span class="player-name">Creeper_Hunter</span>
-                        <span class="player-time">45m online</span>
-                    </div>
-                    <div class="player-status online"></div>
-                </div>
-            </div>
-        </div>
+            </section>
 
-        <!-- Console Section (Hidden by default) -->
-        <div class="console-section glass-effect" id="console-section" style="display: none;">
-            <div class="section-header">
-                <h3 class="section-title">
-                    <i class="fas fa-terminal"></i>
-                    Server Console
-                </h3>
-                <button class="btn-icon-small" onclick="clearConsole()">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-            
-            <div class="console-output" id="console-output">
-                <div class="console-line system">
-                    <span class="console-time">[12:34:56]</span>
-                    <span class="console-text">Server started successfully!</span>
+            <!-- Whitelist Section -->
+            <section class="content-section" id="whitelist-section">
+                <div class="section-card glass-effect">
+                    <div class="section-header"><i class="fas fa-id-card"></i><h2>White List - Как Попасть</h2></div>
+                    <div class="section-body">
+                        <div class="whitelist-info">
+                            <div class="wl-step"><i class="fab fa-discord wl-icon"></i><h3>Шаг 1: Discord</h3><p>Присоединитесь к нашему Discord серверу.</p></div>
+                            <div class="wl-step"><i class="fas fa-file-alt wl-icon"></i><h3>Шаг 2: Заявка</h3><p>Заполните форму: никнейм, возраст, опыт, почему к нам?</p></div>
+                            <div class="wl-step"><i class="fas fa-clock wl-icon"></i><h3>Шаг 3: Ожидание</h3><p>Модераторы рассмотрят вашу заявку.</p></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="console-line info">
-                    <span class="console-time">[12:35:01]</span>
-                    <span class="console-text">Done (2.345s)! For help, type "help"</span>
+            </section>
+
+            <!-- Economy Section -->
+            <section class="content-section" id="economy-section">
+                <div class="section-card glass-effect">
+                    <div class="section-header"><i class="fas fa-coins"></i><h2>Экономика Сервера</h2></div>
+                    <div class="section-body">
+                        <div class="economy-grid">
+                            <div class="econ-card"><i class="fas fa-money-bill-wave"></i><h4>Валюта</h4><p>ШаурмаКоины (SC)</p></div>
+                            <div class="econ-card"><i class="fas fa-store"></i><h4>Магазины</h4><p>Shopkeepers плагин</p></div>
+                            <div class="econ-card"><i class="fas fa-briefcase"></i><h4>Работы</h4><p>Шахтёр, фермер, строитель</p></div>
+                            <div class="econ-card"><i class="fas fa-landmark"></i><h4>Банк</h4><p>Проценты на депозит</p></div>
+                        </div>
+                        <div class="commands-list">
+                            <h3>Команды:</h3>
+                            <div class="cmd-item"><code>/balance</code> - Баланс</div>
+                            <div class="cmd-item"><code>/pay [игрок] [сумма]</code> - Перевод</div>
+                            <div class="cmd-item"><code>/shop</code> - Магазин</div>
+                            <div class="cmd-item"><code>/jobs</code> - Работы</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="console-input-wrapper">
-                <span class="console-prompt">></span>
-                <input type="text" class="console-input" id="console-input" placeholder="Enter command..." autocomplete="off">
-                <button class="console-send-btn" onclick="sendCommand()">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
+            </section>
+
+            <!-- Plugins Section -->
+            <section class="content-section" id="plugins-section">
+                <div class="section-card glass-effect">
+                    <div class="section-header"><i class="fas fa-plug"></i><h2>Плагины Сервера</h2></div>
+                    <div class="section-body">
+                        <div class="plugins-list">
+                            <div class="plugin-item"><i class="fas fa-shield-alt"></i><div><h4>GriefPrevention</h4><p>Защита построек</p></div></div>
+                            <div class="plugin-item"><i class="fas fa-shopping-cart"></i><div><h4>Shopkeepers</h4><p>Торговые точки</p></div></div>
+                            <div class="plugin-item"><i class="fas fa-briefcase"></i><div><h4>Jobs Reborn</h4><p>Система работ</p></div></div>
+                            <div class="plugin-item"><i class="fas fa-users"></i><div><h4>LuckPerms</h4><p>Привилегии</p></div></div>
+                            <div class="plugin-item"><i class="fas fa-home"></i><div><h4>EssentialsX</h4><p>Базовые команды</p></div></div>
+                            <div class="plugin-item"><i class="fas fa-gift"></i><div><h4>Crates</h4><p>Кейсы с наградами</p></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="content-section" id="faq-section">
+                <div class="section-card glass-effect">
+                    <div class="section-header"><i class="fas fa-question-circle"></i><h2>Частые Вопросы (FAQ)</h2></div>
+                    <div class="section-body">
+                        <div class="faq-item"><div class="faq-question"><i class="fas fa-chevron-down"></i><h4>Какая версия Minecraft нужна?</h4></div><div class="faq-answer"><p>Рекомендуемая версия - <strong>1.20.1</strong></p></div></div>
+                        <div class="faq-item"><div class="faq-question"><i class="fas fa-chevron-down"></i><h4>Нужна ли лицензия?</h4></div><div class="faq-answer"><p>Нет, сервер работает в оффлайн режиме.</p></div></div>
+                        <div class="faq-item"><div class="faq-question"><i class="fas fa-chevron-down"></i><h4>Как долго рассматривается заявка?</h4></div><div class="faq-answer"><p>Обычно в течение 24 часов.</p></div></div>
+                        <div class="faq-item"><div class="faq-question"><i class="fas fa-chevron-down"></i><h4>Можно ли создавать кланы?</h4></div><div class="faq-answer"><p>Да! Команда: <code>/clan create [название]</code></p></div></div>
+                        <div class="faq-item"><div class="faq-question"><i class="fas fa-chevron-down"></i><h4>Где взять стартовый набор?</h4></div><div class="faq-answer"><p>Команда: <code>/kit start</code></p></div></div>
+                    </div>
+                </div>
+            </section>
+
         </div>
 
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
-                <p>🔐 Secure Connection | 🛡️ Owner: @Prostynskiy</p>
-                <p class="footer-version">v2.0.0 | Build 2026</p>
+                <div class="footer-social">
+                    <a href="https://discord.gg/shaurma" target="_blank"><i class="fab fa-discord"></i></a>
+                    <a href="https://t.me/shaurma_server" target="_blank"><i class="fab fa-telegram"></i></a>
+                </div>
+                <p>© 2024 Shaurma Server. Все права защищены.</p>
+                <p class="footer-version">Wiki v1.0 | by @Prostynskiy</p>
             </div>
         </footer>
 
-    </div>
-
-    <!-- Toast Notifications -->
-    <div class="toast-container" id="toast-container"></div>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loading-overlay" style="display: none;">
-        <div class="loading-spinner"></div>
-        <p class="loading-text">Processing...</p>
     </div>
 
     <script src="script.js"></script>
