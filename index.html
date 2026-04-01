@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shaurma Wiki - Semi-Vanilla</title>
+    <title>Shaurma Wiki - Vanilla Survival</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,9 +19,9 @@
         <ul class="nav-links">
             <li><button class="nav-btn active" onclick="showSection('home')">🏠 Главная</button></li>
             <li><button class="nav-btn" onclick="showSection('start')">🚀 Начало</button></li>
-            <li><button class="nav-btn" onclick="showSection('commands')">⌨️ Команды</button></li>
             <li><button class="nav-btn" onclick="showSection('trading')">🤝 Торговля</button></li>
-            <li><button class="nav-btn" onclick="showSection('staff')">🛡️ Администрация</button></li>
+            <li><button class="nav-btn" onclick="showSection('protection')">🛡️ Защита</button></li>
+            <li><button class="nav-btn" onclick="showSection('staff')">👥 Администрация</button></li>
             <li><button class="nav-btn" onclick="showSection('rules')">📜 Правила</button></li>
             <li><button class="nav-btn" onclick="showSection('faq')">❓ FAQ</button></li>
         </ul>
@@ -36,15 +36,15 @@
         
         <!-- SEARCH BAR -->
         <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск (например: дом, спавн, правила)..." onkeyup="searchWiki()">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск (например: спавн, правила, вайп)..." onkeyup="searchWiki()">
             <div id="searchResultsMessage">Ничего не найдено 😔</div>
         </div>
 
         <!-- HERO -->
         <div class="hero">
-            <span class="status-badge">SEMI-VANILLA | NO LICENSE</span>
+            <span class="status-badge">PURE VANILLA | NO LICENSE</span>
             <h1>Добро пожаловать на Shaurma</h1>
-            <p>Чистое выживание. Никаких команд, дающих преимущество. Только ты и мир Minecraft.</p>
+            <p>Абсолютно чистое выживание. Никаких команд. Никаких приватов. Только ты и мир Minecraft.</p>
         </div>
 
         <!-- SECTION: HOME -->
@@ -55,13 +55,13 @@
                     <span class="rec-icon">📝</span>
                     <span class="rec-title">Как попасть?</span>
                 </a>
-                <a onclick="showSection('commands')" class="rec-card">
-                    <span class="rec-icon">⌨️</span>
-                    <span class="rec-title">Команды</span>
-                </a>
                 <a onclick="showSection('trading')" class="rec-card">
                     <span class="rec-icon">🤝</span>
                     <span class="rec-title">Торговля</span>
+                </a>
+                <a onclick="showSection('protection')" class="rec-card">
+                    <span class="rec-icon">🛡️</span>
+                    <span class="rec-title">Защита</span>
                 </a>
                 <a onclick="showSection('rules')" class="rec-card">
                     <span class="rec-icon">⚖️</span>
@@ -73,7 +73,7 @@
             <div class="card-grid">
                 <div class="info-card">
                     <h3>Версия</h3>
-                    <p>1.20.4 (Поддержка 1.16 - 1.20). Рекомендуется играть на последней версии.</p>
+                    <p>1.20.4 (Поддержка 1.16 - 1.20). Играйте на любой удобной версии.</p>
                 </div>
                 <div class="info-card">
                     <h3>Лицензия</h3>
@@ -84,8 +84,8 @@
                     <p>Полный вайп раз в 3-4 месяца. Чистая карта, новые возможности.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Честная игра</h3>
-                    <p>Никакого доната, дающего преимущество. Все игроки равны.</p>
+                    <h3>Команды</h3>
+                    <p><strong>У игроков нет команд.</strong> Путешествуйте через порталы, дороги, элитры. Всё как в обычной ванилле.</p>
                 </div>
             </div>
         </div>
@@ -112,54 +112,19 @@
             </div>
         </div>
 
-        <!-- SECTION: COMMANDS -->
-        <div id="commands" class="wiki-section">
-            <h2>Технические команды</h2>
-            <p>Минимум команд для удобства. Никакого влияния на геймплей.</p>
-            <br>
-            
-            <h3>🏠 Дом и Телепортация</h3>
-            <div class="cmd-block">
-                <span>/sethome</span>
-                <button class="copy-btn" onclick="copyText(this, '/sethome')">Копировать</button>
-            </div>
-            <div class="cmd-block">
-                <span>/home</span>
-                <button class="copy-btn" onclick="copyText(this, '/home')">Копировать</button>
-            </div>
-            <div class="cmd-block">
-                <span>/tpa [ник]</span>
-                <button class="copy-btn" onclick="copyText(this, '/tpa ')">Копировать</button>
-            </div>
-            <div class="cmd-block">
-                <span>/spawn</span>
-                <button class="copy-btn" onclick="copyText(this, '/spawn')">Копировать</button>
-            </div>
-
-            <h3>⚙️ Разное</h3>
-            <div class="cmd-block">
-                <span>/afk</span>
-                <button class="copy-btn" onclick="copyText(this, '/afk')">Копировать</button>
-            </div>
-            <div class="cmd-block">
-                <span>/msg [ник] [сообщение]</span>
-                <button class="copy-btn" onclick="copyText(this, '/msg ')">Копировать</button>
-            </div>
-        </div>
-
         <!-- SECTION: TRADING -->
         <div id="trading" class="wiki-section">
             <h2>Торговля между игроками</h2>
-            <p>На сервере нет аукционов и команд продажи. Всё как в ванилле — договаривайтесь лично.</p>
+            <p>На сервере нет аукционов, магазинов и команд продажи. Всё как в ванилле — договаривайтесь лично.</p>
             
             <div class="card-grid">
                 <div class="info-card">
                     <h3>📦 Обмен вещами</h3>
-                    <p>Встречайтесь с игроками на спавне или у баз. Передавайте предметы через верстак или просто бросьте на землю.</p>
+                    <p>Встречайтесь на спавне или у баз. Передавайте предметы через верстак или бросайте на землю под присмотром.</p>
                 </div>
                 <div class="info-card">
                     <h3>💰 Валюта</h3>
-                    <p>Договоритесь сами, что будет валютой. Обычно используют изумруды, золото или алмазы.</p>
+                    <p>Договоритесь сами. Обычно используют изумруды, золото, алмазы или незерит.</p>
                 </div>
                 <div class="info-card">
                     <h3>🏪 Магазины</h3>
@@ -168,6 +133,31 @@
                 <div class="info-card">
                     <h3>🤝 Честность</h3>
                     <p>Сервер не защищает от обмана в торговле. Будьте осторожны и проверяйте товары.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: PROTECTION -->
+        <div id="protection" class="wiki-section">
+            <h2>Защита построек</h2>
+            <p>На сервере <strong>нет приватов</strong>. Ваши постройки защищены только законом и логами.</p>
+            
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3>📍 Где строить?</h3>
+                    <p>Стройте в отдалении от спавна (минимум 5000 блоков). Чем дальше — тем меньше шанс встретить грифера.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🔒 CoreProtect</h3>
+                    <p>Плагин логирует каждое действие. Если вас обгриферят — администрация откатит разрушения.</p>
+                </div>
+                <div class="info-card">
+                    <h3>⚠️ Важно</h3>
+                    <p>Не стройте рядом с чужими базами. Уважайте территории других игроков.</p>
+                </div>
+                <div class="info-card">
+                    <h3>📹 Доказательства</h3>
+                    <p>Если вас обгриферили — запишите видео и отправьте жалобу в Discord. Без доказательств откат не сделаем.</p>
                 </div>
             </div>
         </div>
@@ -215,8 +205,8 @@
                     <p>Запрещено создание ферм и механизмов, которые сильно нагружают сервер.</p>
                 </div>
                 <div class="info-card">
-                    <h3>3. Защита</h3>
-                    <p>Ваши постройки защищены плагином CoreProtect. В случае гриферства — пишите жалобу, мы откатим.</p>
+                    <h3>3. Честная игра</h3>
+                    <p>Уважайте других игроков. Сервер создан для приятного выживания, а не для конфликтов.</p>
                 </div>
             </div>
         </div>
@@ -227,7 +217,7 @@
             <div class="card-grid">
                 <div class="info-card">
                     <h3>Как защитить дом?</h3>
-                    <p>Классических приватов нет. Защита через логи CoreProtect. Стройте в отдалении от спавна.</p>
+                    <p>Приватов нет. Стройте далеко от спавна и друзей. В случае гриферства — пишите жалобу.</p>
                 </div>
                 <div class="info-card">
                     <h3>Меня убили, что делать?</h3>
@@ -238,8 +228,12 @@
                     <p>Только косметический (цвет ника, префикс). Никаких преимуществ в игре.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Как заработать?</h3>
-                    <p>Добывайте ресурсы и продавайте их другим игрокам. Договоритесь о цене в чате.</p>
+                    <h3>Как путешествовать?</h3>
+                    <p>Стройте ледяные дороги, используйте незер-порталы или элитры. Команд телепортации нет.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Есть ли команды у игроков?</h3>
+                    <p><strong>Нет.</strong> У игроков нет никаких команд. Полная ванила.</p>
                 </div>
             </div>
         </div>
