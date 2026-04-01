@@ -5,162 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shaurma Wiki - Semi-Vanilla</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- CSS STYLES --- */
-        :root {
-            --primary: #ff9f1c;
-            --primary-hover: #e08b15;
-            --secondary: #2ec4b6;
-            --bg-dark: #0f1016;
-            --bg-panel: #1b1e2b;
-            --bg-input: #252938;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --discord: #5865F2;
-            --telegram: #24A1DE;
-            --border-color: rgba(255, 255, 255, 0.05);
-            --success: #2ecc71;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        
-        body { background-color: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; }
-        a { text-decoration: none; color: inherit; }
-
-        /* Sidebar */
-        .sidebar {
-            width: 280px; background-color: var(--bg-panel); padding: 2.5rem 2rem;
-            display: flex; flex-direction: column; border-right: 1px solid var(--border-color);
-            position: fixed; height: 100vh; z-index: 100; overflow-y: auto;
-        }
-        
-        .server-status {
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            border: 1px solid var(--border-color);
-        }
-        .status-dot { width: 10px; height: 10px; background-color: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success); }
-
-        .logo { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 2rem; cursor: pointer; text-shadow: 0 0 15px rgba(255, 159, 28, 0.3); letter-spacing: -1px; }
-        .nav-links { list-style: none; flex-grow: 1; }
-        .nav-links li { margin-bottom: 0.5rem; }
-        .nav-btn {
-            background: none; border: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600;
-            cursor: pointer; width: 100%; text-align: left; padding: 0.8rem 1rem; border-radius: 10px;
-            transition: all 0.3s; display: flex; align-items: center; gap: 12px;
-        }
-        .nav-btn:hover { background-color: rgba(255, 255, 255, 0.03); color: var(--text-main); transform: translateX(5px); }
-        .nav-btn.active { background-color: rgba(255, 159, 28, 0.15); color: var(--primary); }
-        
-        .social-links { margin-top: auto; display: flex; gap: 10px; padding-top: 20px; border-top: 1px solid var(--border-color); }
-        .social-btn { flex: 1; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.85rem; transition: 0.2s; }
-        .btn-discord { background-color: var(--discord); color: white; }
-        .btn-telegram { background-color: var(--telegram); color: white; }
-
-        /* Main Content */
-        .main-content { margin-left: 280px; flex-grow: 1; padding: 3rem; max-width: 1400px; }
-        
-        /* Search Bar */
-        .search-container { margin-bottom: 2rem; position: relative; max-width: 600px; }
-        .search-input {
-            width: 100%; background: var(--bg-input); border: 1px solid var(--border-color);
-            padding: 15px 20px; border-radius: 12px; color: white; font-size: 1rem; outline: none;
-            transition: 0.3s;
-        }
-        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 159, 28, 0.1); }
-        #searchResultsMessage { margin-top: 10px; color: var(--text-muted); font-size: 0.9rem; display: none; }
-
-        /* Hero */
-        .hero {
-            background: linear-gradient(135deg, rgba(255, 159, 28, 0.08), rgba(0,0,0,0));
-            border: 1px solid rgba(255, 159, 28, 0.2); padding: 3rem; border-radius: 20px;
-            margin-bottom: 3rem; position: relative; overflow: hidden;
-        }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; z-index: 2; position: relative; }
-        .status-badge {
-            display: inline-block; background: rgba(46, 196, 182, 0.15); color: var(--secondary);
-            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
-            border: 1px solid var(--secondary); margin-bottom: 1rem; z-index: 2; position: relative;
-        }
-
-        /* Sections */
-        .wiki-section { display: none; animation: fadeIn 0.5s ease; }
-        .wiki-section.active { display: block; }
-        
-        h2 { font-size: 2rem; margin-bottom: 1.5rem; border-left: 4px solid var(--primary); padding-left: 15px; }
-        h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.2rem; }
-        p, li { color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
-
-        /* Cards Grid */
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .info-card {
-            background-color: var(--bg-panel); padding: 1.5rem; border-radius: 12px;
-            border: 1px solid var(--border-color); transition: 0.3s; cursor: default;
-            position: relative; overflow: hidden;
-        }
-        .info-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        
-        /* Recommendations Block */
-        .recommendations {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 3rem;
-        }
-        .rec-card {
-            background: rgba(255, 159, 28, 0.05); border: 1px solid rgba(255, 159, 28, 0.2);
-            padding: 1.5rem; border-radius: 12px; text-align: center; cursor: pointer;
-            transition: 0.3s; color: white; display: block;
-        }
-        .rec-card:hover { background: rgba(255, 159, 28, 0.15); transform: scale(1.02); }
-        .rec-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
-        .rec-title { font-weight: bold; color: var(--primary); }
-
-        /* Whitelist Box */
-        .whitelist-box {
-            background: rgba(88, 101, 242, 0.05); border: 1px solid var(--discord);
-            padding: 2rem; border-radius: 12px;
-        }
-
-        /* Command Blocks */
-        .cmd-block {
-            background: #000; border: 1px solid #333; border-radius: 8px;
-            padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;
-            font-family: 'JetBrains Mono', monospace; color: #0f0;
-        }
-        .copy-btn {
-            background: var(--bg-panel); border: 1px solid var(--border-color); color: white;
-            padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; transition: 0.2s;
-        }
-        .copy-btn:hover { background: var(--primary); color: black; border-color: var(--primary); }
-        .copy-btn.copied { background: var(--success); color: white; border-color: var(--success); }
-
-        /* Staff Cards */
-        .staff-card { text-align: center; }
-        .staff-avatar {
-            width: 80px; height: 80px; background: #333; border-radius: 50%; margin: 0 auto 15px;
-            border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2rem;
-        }
-        .staff-role { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--secondary); margin-bottom: 5px; }
-
-        /* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Mobile */
-        @media (max-width: 900px) {
-            .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; border-bottom: 1px solid var(--border-color); }
-            .nav-links { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; }
-            .nav-links li { margin-bottom: 0; min-width: max-content; }
-            .social-links { display: none; }
-            .main-content { margin-left: 0; padding: 1.5rem; }
-            .search-container { max-width: 100%; }
-            .server-status { display: none; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -175,7 +20,7 @@
             <li><button class="nav-btn active" onclick="showSection('home')">🏠 Главная</button></li>
             <li><button class="nav-btn" onclick="showSection('start')">🚀 Начало</button></li>
             <li><button class="nav-btn" onclick="showSection('commands')">⌨️ Команды</button></li>
-            <li><button class="nav-btn" onclick="showSection('economy')">💰 Экономика</button></li>
+            <li><button class="nav-btn" onclick="showSection('trading')">🤝 Торговля</button></li>
             <li><button class="nav-btn" onclick="showSection('staff')">🛡️ Администрация</button></li>
             <li><button class="nav-btn" onclick="showSection('rules')">📜 Правила</button></li>
             <li><button class="nav-btn" onclick="showSection('faq')">❓ FAQ</button></li>
@@ -191,7 +36,7 @@
         
         <!-- SEARCH BAR -->
         <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск (например: приват, деньги, спавн)..." onkeyup="searchWiki()">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск (например: дом, спавн, правила)..." onkeyup="searchWiki()">
             <div id="searchResultsMessage">Ничего не найдено 😔</div>
         </div>
 
@@ -199,7 +44,7 @@
         <div class="hero">
             <span class="status-badge">SEMI-VANILLA | NO LICENSE</span>
             <h1>Добро пожаловать на Shaurma</h1>
-            <p>Ламповое выживание. Минимум плагинов, максимум свободы.</p>
+            <p>Чистое выживание. Никаких команд, дающих преимущество. Только ты и мир Minecraft.</p>
         </div>
 
         <!-- SECTION: HOME -->
@@ -214,9 +59,9 @@
                     <span class="rec-icon">⌨️</span>
                     <span class="rec-title">Команды</span>
                 </a>
-                <a onclick="showSection('economy')" class="rec-card">
-                    <span class="rec-icon">💰</span>
-                    <span class="rec-title">Заработок</span>
+                <a onclick="showSection('trading')" class="rec-card">
+                    <span class="rec-icon">🤝</span>
+                    <span class="rec-title">Торговля</span>
                 </a>
                 <a onclick="showSection('rules')" class="rec-card">
                     <span class="rec-icon">⚖️</span>
@@ -236,7 +81,11 @@
                 </div>
                 <div class="info-card">
                     <h3>Вайп</h3>
-                    <p>Полный вайп раз в 3-4 месяца. Частые обновления карты.</p>
+                    <p>Полный вайп раз в 3-4 месяца. Чистая карта, новые возможности.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Честная игра</h3>
+                    <p>Никакого доната, дающего преимущество. Все игроки равны.</p>
                 </div>
             </div>
         </div>
@@ -246,7 +95,7 @@
             <h2>Начало игры</h2>
             <div class="whitelist-box">
                 <h3>🔒 Вход через WhiteList</h3>
-                <p>Мы используем вайтлист, чтобы отсеять неадекватных игроков.</p>
+                <p>Мы используем вайтлист, чтобы сохранить адекватное комьюнити.</p>
                 <ol style="margin-left: 20px; color: var(--text-muted); margin-top: 10px;">
                     <li>Зайди на наш <strong>Discord</strong> сервер.</li>
                     <li>Прочитай правила в канале <code>#информация</code>.</li>
@@ -259,13 +108,14 @@
                     Откуда узнал: <br>
                     Почему хочешь играть:
                 </div>
+                <p style="margin-top: 15px; font-size: 0.9rem;">После одобрения ты получишь доступ к каналу с IP адресом.</p>
             </div>
         </div>
 
         <!-- SECTION: COMMANDS -->
         <div id="commands" class="wiki-section">
-            <h2>Полезные команды</h2>
-            <p>Нажми на кнопку справа, чтобы скопировать команду.</p>
+            <h2>Технические команды</h2>
+            <p>Минимум команд для удобства. Никакого влияния на геймплей.</p>
             <br>
             
             <h3>🏠 Дом и Телепортация</h3>
@@ -281,47 +131,43 @@
                 <span>/tpa [ник]</span>
                 <button class="copy-btn" onclick="copyText(this, '/tpa ')">Копировать</button>
             </div>
-
-            <h3>💰 Экономика</h3>
-            <div class="cmd-block">
-                <span>/sell all</span>
-                <button class="copy-btn" onclick="copyText(this, '/sell all')">Копировать</button>
-            </div>
-            <div class="cmd-block">
-                <span>/balance</span>
-                <button class="copy-btn" onclick="copyText(this, '/balance')">Копировать</button>
-            </div>
-            <div class="cmd-block">
-                <span>/ah (Аукцион)</span>
-                <button class="copy-btn" onclick="copyText(this, '/ah')">Копировать</button>
-            </div>
-
-            <h3>⚙️ Разное</h3>
             <div class="cmd-block">
                 <span>/spawn</span>
                 <button class="copy-btn" onclick="copyText(this, '/spawn')">Копировать</button>
             </div>
+
+            <h3>⚙️ Разное</h3>
             <div class="cmd-block">
                 <span>/afk</span>
                 <button class="copy-btn" onclick="copyText(this, '/afk')">Копировать</button>
             </div>
+            <div class="cmd-block">
+                <span>/msg [ник] [сообщение]</span>
+                <button class="copy-btn" onclick="copyText(this, '/msg ')">Копировать</button>
+            </div>
         </div>
 
-        <!-- SECTION: ECONOMY -->
-        <div id="economy" class="wiki-section">
-            <h2>Экономика</h2>
+        <!-- SECTION: TRADING -->
+        <div id="trading" class="wiki-section">
+            <h2>Торговля между игроками</h2>
+            <p>На сервере нет аукционов и команд продажи. Всё как в ванилле — договаривайтесь лично.</p>
+            
             <div class="card-grid">
                 <div class="info-card">
-                    <h3>Валюта</h3>
-                    <p>Основная валюта — <strong>$</strong>. Получается продажей ресурсов или выполнением квестов.</p>
+                    <h3>📦 Обмен вещами</h3>
+                    <p>Встречайтесь с игроками на спавне или у баз. Передавайте предметы через верстак или просто бросьте на землю.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Аукцион</h3>
-                    <p>Команда <code>/ah</code> открывает глобальный аукцион сервера. Продавай вещи другим игрокам.</p>
+                    <h3>💰 Валюта</h3>
+                    <p>Договоритесь сами, что будет валютой. Обычно используют изумруды, золото или алмазы.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Магазины</h3>
-                    <p>Создавай свои магазины с помощью плагина ChestShop (нужна табличка и сундук).</p>
+                    <h3>🏪 Магазины</h3>
+                    <p>Игроки строят магазины на спавне. Сундуки с табличками — заходите и берите что нужно, оставляя плату.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🤝 Честность</h3>
+                    <p>Сервер не защищает от обмана в торговле. Будьте осторожны и проверяйте товары.</p>
                 </div>
             </div>
         </div>
@@ -358,14 +204,19 @@
                 <div class="info-card">
                     <h3>1. Запрещено</h3>
                     <ul>
-                        <li>Использование читов (X-Ray, Fly).</li>
+                        <li>Использование читов (X-Ray, Fly, KillAura).</li>
                         <li>Гриферство (разрушение чужих построек).</li>
                         <li>Оскорбления, спам, реклама.</li>
+                        <li>Багоюз (использование ошибок сервера).</li>
                     </ul>
                 </div>
                 <div class="info-card">
                     <h3>2. Лаг-машины</h3>
-                    <p>Запрещено создание ферм, нагружающих сервер (много мобов, редстоун-часы).</p>
+                    <p>Запрещено создание ферм и механизмов, которые сильно нагружают сервер.</p>
+                </div>
+                <div class="info-card">
+                    <h3>3. Защита</h3>
+                    <p>Ваши постройки защищены плагином CoreProtect. В случае гриферства — пишите жалобу, мы откатим.</p>
                 </div>
             </div>
         </div>
@@ -375,110 +226,26 @@
             <h2>Частые вопросы</h2>
             <div class="card-grid">
                 <div class="info-card">
-                    <h3>Как сохранить дом?</h3>
-                    <p>На сервере нет приватов. Защита осуществляется через закон и логи (CoreProtect). Стройте подальше от спавна.</p>
+                    <h3>Как защитить дом?</h3>
+                    <p>Классических приватов нет. Защита через логи CoreProtect. Стройте в отдалении от спавна.</p>
                 </div>
                 <div class="info-card">
                     <h3>Меня убили, что делать?</h3>
                     <p>Это часть выживания. Если подозреваете читера — запишите видео и отправьте жалобу в Discord.</p>
                 </div>
                 <div class="info-card">
-                    <h3>Где взять деньги?</h3>
-                    <p>Используйте команду <code>/sell all</code> продавая мусор, или копайте руды для продажи игрокам.</p>
+                    <h3>Есть ли донат?</h3>
+                    <p>Только косметический (цвет ника, префикс). Никаких преимуществ в игре.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Как заработать?</h3>
+                    <p>Добывайте ресурсы и продавайте их другим игрокам. Договоритесь о цене в чате.</p>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <script>
-        // --- JS LOGIC ---
-
-        // 1. Переключение вкладок
-        function showSection(sectionId) {
-            document.querySelectorAll('.wiki-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            
-            const target = document.getElementById(sectionId);
-            if(target) target.classList.add('active');
-
-            const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(sectionId));
-            if(activeBtn) activeBtn.classList.add('active');
-
-            // Сброс поиска
-            document.getElementById('searchInput').value = '';
-            document.getElementById('searchResultsMessage').style.display = 'none';
-            document.querySelectorAll('.info-card, .cmd-block').forEach(el => el.style.display = '');
-            document.querySelectorAll('.rec-card').forEach(el => el.style.display = '');
-        }
-
-        // 2. Умный поиск (ищет по заголовкам и тексту)
-        function searchWiki() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toUpperCase();
-            const message = document.getElementById('searchResultsMessage');
-            
-            // Ищем во всех карточках и блоках команд
-            const cards = document.getElementsByClassName('info-card');
-            const cmds = document.getElementsByClassName('cmd-block');
-            const recs = document.getElementsByClassName('rec-card');
-            
-            let hasResults = false;
-
-            // Поиск в карточках
-            for (let i = 0; i < cards.length; i++) {
-                const txt = cards[i].innerText.toUpperCase();
-                if (txt.indexOf(filter) > -1) {
-                    cards[i].style.display = "";
-                    hasResults = true;
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-
-            // Поиск в командах
-            for (let i = 0; i < cmds.length; i++) {
-                const txt = cmds[i].innerText.toUpperCase();
-                if (txt.indexOf(filter) > -1) {
-                    cmds[i].style.display = "flex";
-                    hasResults = true;
-                } else {
-                    cmds[i].style.display = "none";
-                }
-            }
-
-            // Поиск в рекомендациях
-            for (let i = 0; i < recs.length; i++) {
-                const txt = recs[i].innerText.toUpperCase();
-                if (txt.indexOf(filter) > -1) {
-                    recs[i].style.display = "block";
-                    hasResults = true;
-                } else {
-                    recs[i].style.display = "none";
-                }
-            }
-
-            // Показать сообщение если ничего не найдено
-            if (filter.length > 0 && !hasResults) {
-                message.style.display = 'block';
-            } else {
-                message.style.display = 'none';
-            }
-        }
-
-        // 3. Копирование текста
-        function copyText(btn, text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = btn.innerText;
-                btn.innerText = "Скопировано!";
-                btn.classList.add('copied');
-                
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
