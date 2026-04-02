@@ -86,8 +86,8 @@ async function fetchServerStatus() {
     const statusDot = document.querySelector('.status-dot');
     
     // ⚠️ ЗАМЕНИТЕ НА СВОЙ IP И ПОРТ
-    const serverIP = 'your-server-ip.com';  // Например: mc.shaurma.ru
-    const serverPort = '25565';  // Стандартный порт
+    const serverIP = 'shaurma.fhml.nl';  // Например: mc.shaurma.ru
+    const serverPort = '8655';  // Стандартный порт
     
     try {
         const response = await fetch(`https://api.mcsrvstat.us/2/${serverIP}:${serverPort}`);
