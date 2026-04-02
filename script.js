@@ -2,42 +2,33 @@
 
 // 1. Переключение вкладок
 function showSection(sectionId) {
-    // Скрыть все секции
     document.querySelectorAll('.wiki-section').forEach(sec => sec.classList.remove('active'));
-    // Убрать активный класс с кнопок
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     
-    // Показать нужную секцию
     const target = document.getElementById(sectionId);
     if(target) target.classList.add('active');
 
-    // Подсветить кнопку
     const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(sectionId));
     if(activeBtn) activeBtn.classList.add('active');
 
-    // Сброс поиска при переключении
     document.getElementById('searchInput').value = '';
     document.getElementById('searchResultsMessage').style.display = 'none';
-    
-    // Показываем все элементы снова
     document.querySelectorAll('.info-card, .cmd-block').forEach(el => el.style.display = '');
     document.querySelectorAll('.rec-card').forEach(el => el.style.display = '');
 }
 
-// 2. Умный поиск (ищет по заголовкам и тексту)
+// 2. Умный поиск
 function searchWiki() {
     const input = document.getElementById('searchInput');
     const filter = input.value.toUpperCase();
     const message = document.getElementById('searchResultsMessage');
     
-    // Ищем во всех карточках и блоках команд
     const cards = document.getElementsByClassName('info-card');
     const cmds = document.getElementsByClassName('cmd-block');
     const recs = document.getElementsByClassName('rec-card');
     
     let hasResults = false;
 
-    // Поиск в карточках
     for (let i = 0; i < cards.length; i++) {
         const txt = cards[i].innerText.toUpperCase();
         if (txt.indexOf(filter) > -1) {
@@ -48,7 +39,6 @@ function searchWiki() {
         }
     }
 
-    // Поиск в командах
     for (let i = 0; i < cmds.length; i++) {
         const txt = cmds[i].innerText.toUpperCase();
         if (txt.indexOf(filter) > -1) {
@@ -59,7 +49,6 @@ function searchWiki() {
         }
     }
 
-    // Поиск в рекомендациях
     for (let i = 0; i < recs.length; i++) {
         const txt = recs[i].innerText.toUpperCase();
         if (txt.indexOf(filter) > -1) {
@@ -70,7 +59,6 @@ function searchWiki() {
         }
     }
 
-    // Показать сообщение если ничего не найдено
     if (filter.length > 0 && !hasResults) {
         message.style.display = 'block';
     } else {
@@ -91,3 +79,41 @@ function copyText(btn, text) {
         }, 2000);
     });
 }
+
+// 4. === НОВое: Получение реального онлайна ===
+async function fetchServerStatus() {
+    const statusElement = document.querySelector('.server-status span');
+    const statusDot = document.querySelector('.status-dot');
+    
+    // ⚠️ ЗАМЕНИТЕ НА СВОЙ IP И ПОРТ
+    const serverIP = 'your-server-ip.com';  // Например: mc.shaurma.ru
+    const serverPort = '25565';  // Стандартный порт
+    
+    try {
+        const response = await fetch(`https://api.mcsrvstat.us/2/${serverIP}:${serverPort}`);
+        const data = await response.json();
+        
+        if (data.online) {
+            // Сервер онлайн
+            statusElement.innerHTML = `Online: <strong style="color: white;">${data.players.online}</strong> / ${data.players.max}`;
+            statusDot.style.backgroundColor = '#2ecc71';  // Зелёный
+            statusDot.style.boxShadow = '0 0 10px #2ecc71';
+        } else {
+            // Сервер оффлайн
+            statusElement.innerHTML = `Статус: <strong style="color: #ff4757;">OFFLINE</strong>`;
+            statusDot.style.backgroundColor = '#ff4757';  // Красный
+            statusDot.style.boxShadow = '0 0 10px #ff4757';
+        }
+    } catch (error) {
+        console.error('Ошибка получения статуса сервера:', error);
+        statusElement.innerHTML = `Статус: <strong style="color: #ffa502;">Неизвестно</strong>`;
+        statusDot.style.backgroundColor = '#ffa502';  // Оранжевый
+    }
+}
+
+// Запускаем при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    fetchServerStatus();
+    // Обновляем онлайн каждые 60 секунд
+    setInterval(fetchServerStatus, 60000);
+});
