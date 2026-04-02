@@ -19,10 +19,10 @@
         <ul class="nav-links">
             <li><button class="nav-btn active" onclick="showSection('home')">🏠 Главная</button></li>
             <li><button class="nav-btn" onclick="showSection('start')">🚀 Начало</button></li>
+            <li><button class="nav-btn" onclick="showSection('rules')">📜 Правила</button></li>
             <li><button class="nav-btn" onclick="showSection('trading')">🤝 Торговля</button></li>
             <li><button class="nav-btn" onclick="showSection('protection')">🛡️ Защита</button></li>
             <li><button class="nav-btn" onclick="showSection('staff')">👥 Администрация</button></li>
-            <li><button class="nav-btn" onclick="showSection('rules')">📜 Правила</button></li>
             <li><button class="nav-btn" onclick="showSection('faq')">❓ FAQ</button></li>
         </ul>
         <div class="social-links">
@@ -55,6 +55,10 @@
                     <span class="rec-icon">📝</span>
                     <span class="rec-title">Как попасть?</span>
                 </a>
+                <a onclick="showSection('rules')" class="rec-card">
+                    <span class="rec-icon">⚖️</span>
+                    <span class="rec-title">Правила</span>
+                </a>
                 <a onclick="showSection('trading')" class="rec-card">
                     <span class="rec-icon">🤝</span>
                     <span class="rec-title">Торговля</span>
@@ -62,10 +66,6 @@
                 <a onclick="showSection('protection')" class="rec-card">
                     <span class="rec-icon">🛡️</span>
                     <span class="rec-title">Защита</span>
-                </a>
-                <a onclick="showSection('rules')" class="rec-card">
-                    <span class="rec-icon">⚖️</span>
-                    <span class="rec-title">Правила</span>
                 </a>
             </div>
 
@@ -109,6 +109,147 @@
                     Почему хочешь играть:
                 </div>
                 <p style="margin-top: 15px; font-size: 0.9rem;">После одобрения ты получишь доступ к каналу с IP адресом.</p>
+            </div>
+        </div>
+
+        <!-- SECTION: RULES (ОЧЕНЬ БОЛЬШИЕ) -->
+        <div id="rules" class="wiki-section">
+            <h2>Правила сервера</h2>
+            <p style="margin-bottom: 30px; color: var(--text-muted);">
+                <strong>Внимание!</strong> Незнание правил не освобождает от ответственности. 
+                Администрация оставляет за собой право выдать наказание на своё усмотрение.
+            </p>
+
+            <!-- Раздел 1 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>📌 Раздел 1. Основные положения</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>1.1.</strong> Заходя на сервер, вы автоматически соглашаетесь со всеми правилами.</li>
+                    <li><strong>1.2.</strong> Правила могут быть изменены в любое время без предварительного уведомления.</li>
+                    <li><strong>1.3.</strong> Незнание правил не освобождает от ответственности.</li>
+                    <li><strong>1.4.</strong> Администрация оставляет за собой право выдать наказание на своё усмотрение.</li>
+                    <li><strong>1.5.</strong> Решения администрации окончательны и обжалованию не подлежат.</li>
+                    <li><strong>1.6.</strong> Один игрок — один аккаунт. Мультиаккаунты запрещены.</li>
+                    <li><strong>1.7.</strong> Передача аккаунта третьим лицам запрещена.</li>
+                    <li><strong>1.8.</strong> Возраст игрока должен быть не менее 10 лет.</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 2 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>🚫 Раздел 2. Запрещённое ПО и читы</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>2.1.</strong> Запрещено использование любых чит-клиентов (X-Ray, Fly, KillAura, Reach и др.).</li>
+                    <li><strong>2.2.</strong> Запрещено использование текстурпаков с преимуществом (полныйbright, прозрачная листва и т.д.).</li>
+                    <li><strong>2.3.</strong> Запрещено использование макросов и авто-кликеров.</li>
+                    <li><strong>2.4.</strong> Запрещено использование багов игры и сервера в личных целях.</li>
+                    <li><strong>2.5.</strong> Запрещено использование стороннего ПО для получения преимущества (миникарты с пещерами и т.д.).</li>
+                    <li><strong>2.6.</strong> Разрешены только оптимизационные моды (OptiFine, Sodium, Lithium).</li>
+                    <li><strong>2.7.</strong> Запрещено использование дюп-багов (размножение предметов).</li>
+                    <li><strong>2.8.</strong> При подозрении на читы администрация вправе запросить запись экрана.</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 3 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>🏠 Раздел 3. Постройки и территории</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>3.1.</strong> Гриферство (разрушение чужих построек) строго запрещено.</li>
+                    <li><strong>3.2.</strong> Запрещено строительство в радиусе 500 блоков от чужих баз без разрешения.</li>
+                    <li><strong>3.3.</strong> Запрещено строить лаг-машины и фермы, нагружающие сервер.</li>
+                    <li><strong>3.4.</strong> Запрещено строить непристойные сооружения (свастики, оскорбления и т.д.).</li>
+                    <li><strong>3.5.</strong> Запрещено портить ландшафт вблизи спавна (копать ямы, рубить все деревья).</li>
+                    <li><strong>3.6.</strong> Запрещено создавать автоматические фермы железа/големов в больших количествах.</li>
+                    <li><strong>3.7.</strong> Запрещено строить ловушки для игроков на спавне.</li>
+                    <li><strong>3.8.</strong> Администрация не несёт ответственности за постройки в радиусе 1000 блоков от спавна.</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 4 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>💬 Раздел 4. Чат и общение</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>4.1.</strong> Запрещены оскорбления игроков и администрации.</li>
+                    <li><strong>4.2.</strong> Запрещён спам (повторение сообщений более 3 раз).</li>
+                    <li><strong>4.3.</strong> Запрещена реклама сторонних серверов, сайтов, Discord-каналов.</li>
+                    <li><strong>4.4.</strong> Запрещено разжигание конфликтов на национальной, религиозной почве.</li>
+                    <li><strong>4.5.</strong> Запрещено обсуждение политики и религии в чате.</li>
+                    <li><strong>4.6.</strong> Запрещён флуд (бессмысленные сообщения, капс более 70% сообщения).</li>
+                    <li><strong>4.7.</strong> Запрещено выдавать себя за администрацию сервера.</li>
+                    <li><strong>4.8.</strong> Запрещено уговаривать выдать админку, деньги, предметы.</li>
+                    <li><strong>4.9.</strong> Запрещено использование нецензурной лексики (мат).</li>
+                    <li><strong>4.10.</strong> Запрещено распространение личной информации игроков (доксинг).</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 5 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>⚔️ Раздел 5. PvP и взаимодействия</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>5.1.</strong> PvP разрешено во всех мирах, кроме спавна.</li>
+                    <li><strong>5.2.</strong> Убийство игроков на спавне запрещено.</li>
+                    <li><strong>5.3.</strong> Запрещено убийство игроков без причины (РДМ) в мирных целях.</li>
+                    <li><strong>5.4.</strong> Запрещено использование уязвимостей для убийства игроков.</li>
+                    <li><strong>5.5.</strong> Запрещено заманивать игроков в ловушки с целью убийства.</li>
+                    <li><strong>5.6.</strong> Кража вещей у убитых игроков разрешена (если это не гриферство).</li>
+                    <li><strong>5.7.</strong> Запрещено объединяться в команды для массового уничтожения игроков.</li>
+                    <li><strong>5.8.</strong> Клановые войны разрешены только по взаимному согласию.</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 6 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>💰 Раздел 6. Экономика и торговля</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>6.1.</strong> Все сделки между игроками осуществляются на свой страх и риск.</li>
+                    <li><strong>6.2.</strong> Администрация не возвращает предметы, потерянные в результате обмана.</li>
+                    <li><strong>6.3.</strong> Запрещено использование багов торговли для получения преимущества.</li>
+                    <li><strong>6.4.</strong> Запрещено создавать магазины с заведомо обманными ценами.</li>
+                    <li><strong>6.5.</strong> Валюта сервера — изумруды, алмазы, золото (по договорённости).</li>
+                    <li><strong>6.6.</strong> Запрещено вымогательство предметов или валюты у других игроков.</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 7 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>🛠️ Раздел 7. Технические правила</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>7.1.</strong> Запрещено создание лаг-машин любого типа.</li>
+                    <li><strong>7.2.</strong> Запрещено перегружать сервер фермами мобов (более 200 мобов в одной зоне).</li>
+                    <li><strong>7.3.</strong> Запрещено использование редстоун-часов с интервалом менее 3 тиков.</li>
+                    <li><strong>7.4.</strong> Запрещено создание бесконечных генераторов предметов.</li>
+                    <li><strong>7.5.</strong> Запрещено намеренное снижение TPS сервера.</li>
+                    <li><strong>7.6.</strong> Администрация вправе удалить любую постройку, влияющую на производительность.</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 8 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>⚖️ Раздел 8. Наказания</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>8.1.</strong> Предупреждение — за первое незначительное нарушение.</li>
+                    <li><strong>8.2.</strong> Мут (блокировка чата) — за нарушения правил чата (от 1 часа до 7 дней).</li>
+                    <li><strong>8.3.</strong> Кик (выброс с сервера) — за повторные нарушения.</li>
+                    <li><strong>8.4.</strong> Бан (блокировка доступа) — за серьёзные нарушения (от 1 дня до навсегда).</li>
+                    <li><strong>8.5.</strong> Вайп инвентаря — за использование читов или дюпов.</li>
+                    <li><strong>8.6.</strong> Откат постройки — за нарушение правил строительства.</li>
+                    <li><strong>8.7.</strong> Срок наказания зависит от тяжести нарушения и истории игрока.</li>
+                    <li><strong>8.8.</strong> Повторное нарушение влечёт увеличение срока наказания в 2 раза.</li>
+                </ul>
+            </div>
+
+            <!-- Раздел 9 -->
+            <div class="info-card" style="margin-bottom: 20px;">
+                <h3>📋 Раздел 9. Жалобы и апелляции</h3>
+                <ul style="margin-left: 20px; color: var(--text-muted); line-height: 2;">
+                    <li><strong>9.1.</strong> Жалобы принимаются только в Discord сервере.</li>
+                    <li><strong>9.2.</strong> Жалоба должна содержать: ник нарушителя, дату, описание, доказательства (видео/скриншоты).</li>
+                    <li><strong>9.3.</strong> Жалобы без доказательств не рассматриваются.</li>
+                    <li><strong>9.4.</strong> Срок рассмотрения жалобы — до 72 часов.</li>
+                    <li><strong>9.5.</strong> Апелляции на бан принимаются только через Discord.</li>
+                    <li><strong>9.6.</strong> Ложная жалоба на игрока может повлечь наказание для заявителя.</li>
+                    <li><strong>9.7.</strong> Запрещено писать в ЛС администрации по вопросам разбана (только через канал апелляций).</li>
+                </ul>
             </div>
         </div>
 
@@ -167,47 +308,40 @@
             <h2>Команда проекта</h2>
             <div class="card-grid">
                 <div class="info-card staff-card">
-                    <div class="staff-avatar">👑</div>
-                    <div class="staff-role">Owner</div>
-                    <h3>ShaurmaBoss</h3>
+                    <div class="staff-avatar" style="border-color: #ff4757;">👑</div>
+                    <div class="staff-role" style="color: #ff4757;">Администратор</div>
+                    <h3>Prostynskiy</h3>
                     <p>Основатель сервера.</p>
                 </div>
                 <div class="info-card staff-card">
-                    <div class="staff-avatar">🛡️</div>
-                    <div class="staff-role">Admin</div>
-                    <h3>Modder_01</h3>
+                    <div class="staff-avatar" style="border-color: #ff4757;">🛡️</div>
+                    <div class="staff-role" style="color: #ff4757;">Администратор</div>
+                    <h3>ISIShunters</h3>
                     <p>Технический администратор.</p>
                 </div>
                 <div class="info-card staff-card">
-                    <div class="staff-avatar">🔨</div>
-                    <div class="staff-role">Helper</div>
-                    <h3>HelperName</h3>
-                    <p>Помощник игроков.</p>
+                    <div class="staff-avatar" style="border-color: #ffa502;">🔨</div>
+                    <div class="staff-role" style="color: #ffa502;">Модератор</div>
+                    <h3>ИЩЕМ</h3>
+                    <p>Подай заявку в Discord!</p>
                 </div>
             </div>
-        </div>
 
-        <!-- SECTION: RULES -->
-        <div id="rules" class="wiki-section">
-            <h2>Правила сервера</h2>
-            <div class="card-grid">
-                <div class="info-card">
-                    <h3>1. Запрещено</h3>
-                    <ul>
-                        <li>Использование читов (X-Ray, Fly, KillAura).</li>
-                        <li>Гриферство (разрушение чужих построек).</li>
-                        <li>Оскорбления, спам, реклама.</li>
-                        <li>Багоюз (использование ошибок сервера).</li>
-                    </ul>
-                </div>
-                <div class="info-card">
-                    <h3>2. Лаг-машины</h3>
-                    <p>Запрещено создание ферм и механизмов, которые сильно нагружают сервер.</p>
-                </div>
-                <div class="info-card">
-                    <h3>3. Честная игра</h3>
-                    <p>Уважайте других игроков. Сервер создан для приятного выживания, а не для конфликтов.</p>
-                </div>
+            <div class="whitelist-box" style="margin-top: 30px;">
+                <h3>📝 Как стать модератором?</h3>
+                <p style="color: var(--text-muted); margin-top: 10px;">
+                    Мы ищем активных игроков в команду модераторов. Требования:
+                </p>
+                <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 10px; line-height: 1.8;">
+                    <li>Возраст от 16 лет</li>
+                    <li>Опыт игры на сервере от 1 месяца</li>
+                    <li>Знание правил сервера</li>
+                    <li>Активность в Discord</li>
+                    <li>Адекватность и стрессоустойчивость</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <strong>Для подачи заявки:</strong> напишите в Discord канал <code>#заявка-на-модератора</code>
+                </p>
             </div>
         </div>
 
@@ -234,6 +368,10 @@
                 <div class="info-card">
                     <h3>Есть ли команды у игроков?</h3>
                     <p><strong>Нет.</strong> У игроков нет никаких команд. Полная ванила.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Как подать жалобу?</h3>
+                    <p>В Discord в канал <code>#жалобы</code>. Приложите видео или скриншоты.</p>
                 </div>
             </div>
         </div>
